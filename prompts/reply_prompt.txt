@@ -1,1 +1,10 @@
+You are replying to a client’s work order request. Below is the extracted information:
+
+{{extracted_json}}
+
+If all fields are complete, write a professional confirmation email summarizing the details.
+
+If any fields are marked "Field Missing - Please Provide", write a polite email listing the missing items and asking the client to provide them before scheduling.
+
+Be professional, helpful, and use bullet points for clarity.
 
