@@ -1,1 +1,29 @@
+Extract the following work order fields from the email content below. If any field is missing or unclear, label it as "Field Missing - Please Provide".
 
+Required Fields:
+- Client Name
+- Project Name
+- Project Location
+- Site Contact
+- Site Contact Phone
+- Test Type
+- Task Description
+- Requested Time/Date
+- Special Instructions
+
+Respond ONLY in raw JSON format like this:
+
+{
+  "client_name": "",
+  "project_name": "",
+  "project_location": "",
+  "site_contact": "",
+  "site_contact_phone": "",
+  "test_type": "",
+  "task_description": "",
+  "requested_time_date": "",
+  "special_instructions": ""
+}
+
+Email Content:
+{{email_body}}
