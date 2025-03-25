@@ -1,9 +1,9 @@
 import os
-import openai
+from openai import OpenAI
 from pathlib import Path
 
-# Load OpenAI API key
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Initialize the OpenAI client using environment variable
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Path to your prompt templates
 PROMPT_DIR = Path(__file__).resolve().parent.parent / "prompts"
@@ -18,7 +18,7 @@ def extract_work_order_data(email_body):
     full_prompt = prompt.replace("{{email_body}}", email_body.strip())
 
     print("🔍 Calling OpenAI to extract fields...")
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a helpful assistant that extracts structured data from emails."},
@@ -26,14 +26,14 @@ def extract_work_order_data(email_body):
         ],
         temperature=0.2
     )
-    return response["choices"][0]["message"]["content"]
+    return response.choices[0].message.content
 
 def generate_response_email(extracted_json):
     prompt = load_prompt("reply_prompt.txt")
     full_prompt = prompt.replace("{{extracted_json}}", extracted_json.strip())
 
     print("✉️ Generating client response...")
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a professional project coordinator replying to client requests."},
@@ -41,5 +41,4 @@ def generate_response_email(extracted_json):
         ],
         temperature=0.5
     )
-    return response["choices"][0]["message"]["content"]
-
+    return response.choices[0].message.content
