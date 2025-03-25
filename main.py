@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from utils.openai_api import extract_work_order_data, generate_response_email
+from utils.sheets import log_work_order  # ← Add this line
 
 # Load environment variables from .env
 load_dotenv()
@@ -32,6 +33,8 @@ def main():
     print("\n✉️ Suggested Email Reply:")
     print(response)
 
+    # Step 3: Log to Google Sheets
+    log_work_order(extracted_data)
+
 if __name__ == "__main__":
     main()
-
